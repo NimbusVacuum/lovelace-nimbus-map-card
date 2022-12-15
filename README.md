@@ -1,6 +1,6 @@
-# Lovelace Valetudo Map Card
+# Lovelace Nimbus Map Card
 
-Draws the map from a vacuum cleaner, that is rooted and flashed with [Valetudo](https://github.com/Hypfer/Valetudo), in a [Home Assistant](https://www.home-assistant.io/) Lovelace card.
+Draws the map from a vacuum cleaner, that is rooted and flashed with [Nimbus](https://github.com/NimbusVacuum/Nimbus), in a [Home Assistant](https://www.home-assistant.io/) Lovelace card.
 
 ## Installation
 
@@ -9,20 +9,20 @@ If Lovelace is set to `storage` mode, HACS automatically manages the registratio
 
 1. Make sure Lovelace is set to `storage` mode. Navigate to [**Settings** -> **System** -> **Repairs** -> **⋮** -> **System information**](https://my.home-assistant.io/redirect/system_health/) and verify that it says `storage` under *Dashboards* -> *Mode*. If it says `auto-gen`, you can switch to `storage` mode by starting to edit the main dashboard (where it asks you to "take over control", which is a prose way to say "activate storage mode").
 
-2. Follow the HACS [installation instructions](https://hacs.xyz/docs/installation/prerequisites). Then, open HACS, go to Frontend and click "Explore & Download Repositories" and search for "Valetudo Map Card". Select it and choose "Download".
+2. Follow the HACS [installation instructions](https://hacs.xyz/docs/installation/prerequisites). Then, open HACS, go to Frontend and click "Explore & Download Repositories" and search for "Nimbus Map Card". Select it and choose "Download".
 
 ## Configuration
 
 ### MQTT
 
-This card makes use of [Valetudo's MQTT support](https://valetudo.cloud/pages/integrations/mqtt.html).
-MQTT has to be configured in [Home Assistant](https://www.home-assistant.io/docs/mqtt/broker) and [Valetudo](https://hypfer.github.io/Valetudo/pages/integrations/home-assistant-integration.html).
+This card makes use of [Nimbus's MQTT support](https://nimbus.cleaning/pages/integrations/mqtt.html).
+MQTT has to be configured in [Home Assistant](https://www.home-assistant.io/docs/mqtt/broker) and [Nimbus](https://nimbus.cleaning/pages/integrations/home-assistant-integration.html).
 
 ### Dashboard resources
 
-When using HACS, there should be no need to manually make Home Assistant aware of custom JavaScript resources of this custom card. Navigate to [**Settings** -> **Lovelace Dashboards** -> **Resources**](https://my.home-assistant.io/redirect/lovelace_resources/) in the web UI to verify the registration was successful. If no entry ending in `/valetudo-map-card.js` is present, it failed for some reason.
+When using HACS, there should be no need to manually make Home Assistant aware of custom JavaScript resources of this custom card. Navigate to [**Settings** -> **Lovelace Dashboards** -> **Resources**](https://my.home-assistant.io/redirect/lovelace_resources/) in the web UI to verify the registration was successful. If no entry ending in `/nimbus-map-card.js` is present, it failed for some reason.
 
-To manually register the resource, click **Add Resource** via the web UI and add the URL `/local/community/lovelace-valetudo-map-card/valetudo-map-card.js`.
+To manually register the resource, click **Add Resource** via the web UI and add the URL `/local/community/lovelace-nimbus-map-card/nimbus-map-card.js`.
 
 ### Custom card
 
@@ -41,10 +41,10 @@ For easy control of the vacuum, consider using a vertical-stack with an entities
 ```
 type: vertical-stack
 cards:
-  - vacuum: valetudo_thirstyserpentinestingray
-    type: custom:valetudo-map-card
+  - vacuum: nimbus_thirstyserpentinestingray
+    type: custom:nimbus-map-card
   - entities:
-      - vacuum.valetudo_thirstyserpentinestingray
+      - vacuum.nimbus_thirstyserpentinestingray
     type: entities
 ```
 
@@ -56,7 +56,7 @@ When combining this card with Home Assistant's `picture-elements`, you could use
 type: picture-elements
 image: https://online.visual-paradigm.com/repository/images/e5728e49-09ce-4c95-b83c-482deee24386.png
 elements:
-  - type: 'custom:valetudo-map-card'
+  - type: 'custom:nimbus-map-card'
     entity: camera.map_data
     show_floor: false
     background_color: transparent
@@ -68,25 +68,25 @@ Then use map_scale and crop to make it fit.
 
 | Name                                | Type    | Default                                                             | Description                                                                                                                                                                                                         
 |-------------------------------------|---------|---------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-| type                                | string  | **Required**                                                        | `custom:valetudo-map-card`                                                                                                                                                                                          
+| type                                | string  | **Required**                                                        | `custom:nimbus-map-card`                                                                                                                                                                                          
 | vacuum                              | string  | **Required**                                                        | Name of the vacuum in MQTT (without vacuum. prefix)                                                                                                                                                                 
 | title                               | string  | Vacuum                                                              | Title to show in the card header                                                                                                                                                                                    
 | show_map                            | boolean | true                                                                | Show the map                                                                                                                                                                                                        
 | background_color                    | string  |                                                                     | Background color of the card                                                                                                                                                                                        
-| floor_color                         | string  | '--valetudo-map-floor-color', '--secondary-background-color'        | Floor color                                                                                                                                                                                                         
+| floor_color                         | string  | '--nimbus-map-floor-color', '--secondary-background-color'        | Floor color                                                                                                                                                                                                         
 | floor_opacity                       | number  | 1                                                                   | Floor opacity                                                                                                                                                                                                       
-| wall_color                          | string  | '--valetudo-map-wall-color', '--accent-color'                       | Wall                                                                                                                                                                                                                
+| wall_color                          | string  | '--nimbus-map-wall-color', '--accent-color'                       | Wall                                                                                                                                                                                                                
 | wall_opacity                        | number  | 1                                                                   | Wall opacity                                                                                                                                                                                                        
-| currently_cleaned_zone_color        | string  | '--valetudo-currently_cleaned_zone_color', '--secondary-text-color' | Color of zones selected for cleanup                                                                                                                                                                                 
+| currently_cleaned_zone_color        | string  | '--nimbus-currently_cleaned_zone_color', '--secondary-text-color' | Color of zones selected for cleanup                                                                                                                                                                                 
 | currently_cleaned_zone_opacity      | number  | 0.5                                                                 | Opacity of the currently cleaned zones                                                                                                                                                                              
-| no_go_area_color                    | string  | '--valetudo-no-go-area-color', '--accent-color'                     | No go area color                                                                                                                                                                                                    
+| no_go_area_color                    | string  | '--nimbus-no-go-area-color', '--accent-color'                     | No go area color                                                                                                                                                                                                    
 | no_go_area_opacity                  | number  | 0.5                                                                 | Opacity of the no go areas                                                                                                                                                                                          
-| no_mop_area_color                   | string  | '--valetudo-no-mop-area-color', '--secondary-text-color'            | No mop area color                                                                                                                                                                                                   
+| no_mop_area_color                   | string  | '--nimbus-no-mop-area-color', '--secondary-text-color'            | No mop area color                                                                                                                                                                                                   
 | no_mop_area_opacity                 | number  | 0.5                                                                 | Opacity of the no mop areas                                                                                                                                                                                         
-| virtual_wall_color                  | string  | '--valetudo-virtual-wall-color', '--accent-color'                   | Virtual wall color                                                                                                                                                                                                  
+| virtual_wall_color                  | string  | '--nimbus-virtual-wall-color', '--accent-color'                   | Virtual wall color                                                                                                                                                                                                  
 | virtual_wall_opacity                | number  | 1                                                                   | Virtual wall opacity                                                                                                                                                                                                
 | virtual_wall_width                  | number  | 1                                                                   | Virtual wall line width                                                                                                                                                                                             
-| path_color                          | string  | '--valetudo-map-path-color', '--primary-text-color'                 | Path color                                                                                                                                                                                                          
+| path_color                          | string  | '--nimbus-map-path-color', '--primary-text-color'                 | Path color                                                                                                                                                                                                          
 | path_opacity                        | number  | 1                                                                   | Path opacity                                                                                                                                                                                                        
 | path_width                          | number  | 1                                                                   | Path line width                                                                                                                                                                                                     
 | segment_colors                      | array   | '#19A1A1', '#7AC037', '#DF5618', '#F7C841'                          | Segment colors                                                                                                                                                                                                      
@@ -142,4 +142,4 @@ Custom buttons can be added to this card when vacuum_entity is set. Each custom 
 
 ## License
 
-Lovelace Valetudo Map Card is licensed under the MIT license.
+Lovelace Nimbus Map Card is licensed under the MIT license.

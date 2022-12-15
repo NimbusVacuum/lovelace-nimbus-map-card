@@ -1,6 +1,6 @@
 {
-  "name": "Valetudo Map Card",
+  "name": "Nimbus Map Card",
   "content_in_root": true,
-  "filename": "valetudo-map-card.js",
+  "filename": "nimbus-map-card.js",
   "render_readme": true
 }

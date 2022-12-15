@@ -1,4 +1,4 @@
-class ValetudoMapCard extends HTMLElement {
+class NimbusMapCard extends HTMLElement {
   constructor() {
     super();
 
@@ -12,7 +12,7 @@ class ValetudoMapCard extends HTMLElement {
     this.pollInterval = POLL_INTERVAL_STATE_MAP["cleaning"];
 
     this.cardContainer = document.createElement('ha-card');
-    this.cardContainer.id = 'lovelaceValetudoHaCard';
+    this.cardContainer.id = 'lovelaceNimbusHaCard';
     this.cardContainerStyle = document.createElement('style');
     this.shadowRoot.appendChild(this.cardContainer);
     this.shadowRoot.appendChild(this.cardContainerStyle);
@@ -25,23 +25,23 @@ class ValetudoMapCard extends HTMLElement {
     this.cardContainer.appendChild(this.cardHeader);
 
     this.entityWarning1 = document.createElement('hui-warning');
-    this.entityWarning1.id = 'lovelaceValetudoWarning1HaCard';
+    this.entityWarning1.id = 'lovelaceNimbusWarning1HaCard';
     this.entityWarning1.style.display = 'none';
     this.cardContainer.appendChild(this.entityWarning1);
 
     this.entityWarning2 = document.createElement('hui-warning');
-    this.entityWarning2.id = 'lovelaceValetudoWarning2HaCard';
+    this.entityWarning2.id = 'lovelaceNimbusWarning2HaCard';
     this.entityWarning2.style.display = 'none';
     this.cardContainer.appendChild(this.entityWarning2);
 
     this.mapContainer = document.createElement('div');
-    this.mapContainer.id = 'lovelaceValetudoMapCard';
+    this.mapContainer.id = 'lovelaceNimbusMapCard';
     this.mapContainerStyle = document.createElement('style');
     this.cardContainer.appendChild(this.mapContainer);
     this.cardContainer.appendChild(this.mapContainerStyle);
 
     this.controlContainer = document.createElement('div');
-    this.controlContainer.id = 'lovelaceValetudoControlCard';
+    this.controlContainer.id = 'lovelaceNimbusControlCard';
     this.controlContainerStyle = document.createElement('style');
     this.cardContainer.appendChild(this.controlContainer);
     this.cardContainer.appendChild(this.controlContainerStyle);
@@ -214,20 +214,20 @@ class ValetudoMapCard extends HTMLElement {
 
     // Calculate colours
     const homeAssistant = document.getElementsByTagName('home-assistant')[0];
-    const floorColor = this.calculateColor(homeAssistant, this._config.floor_color, '--valetudo-map-floor-color', '--secondary-background-color');
-    const wallColor = this.calculateColor(homeAssistant, this._config.wall_color, '--valetudo-map-wall-color', '--accent-color');
-    const currentlyCleanedZoneColor = this.calculateColor(homeAssistant, this._config.currently_cleaned_zone_color, '--valetudo-currently_cleaned_zone_color', '--secondary-text-color');
-    const noGoAreaColor = this.calculateColor(homeAssistant, this._config.no_go_area_color, '--valetudo-no-go-area-color', '--accent-color');
-    const noMopAreaColor = this.calculateColor(homeAssistant, this._config.no_mop_area_color, '--valetudo-no-mop-area-color', '--secondary-text-color');
-    const virtualWallColor = this.calculateColor(homeAssistant, this._config.virtual_wall_color, '--valetudo-virtual-wall-color', '--accent-color');
-    const pathColor = this.calculateColor(homeAssistant, this._config.path_color, '--valetudo-map-path-color', '--primary-text-color');
+    const floorColor = this.calculateColor(homeAssistant, this._config.floor_color, '--nimbus-map-floor-color', '--secondary-background-color');
+    const wallColor = this.calculateColor(homeAssistant, this._config.wall_color, '--nimbus-map-wall-color', '--accent-color');
+    const currentlyCleanedZoneColor = this.calculateColor(homeAssistant, this._config.currently_cleaned_zone_color, '--nimbus-currently_cleaned_zone_color', '--secondary-text-color');
+    const noGoAreaColor = this.calculateColor(homeAssistant, this._config.no_go_area_color, '--nimbus-no-go-area-color', '--accent-color');
+    const noMopAreaColor = this.calculateColor(homeAssistant, this._config.no_mop_area_color, '--nimbus-no-mop-area-color', '--secondary-text-color');
+    const virtualWallColor = this.calculateColor(homeAssistant, this._config.virtual_wall_color, '--nimbus-virtual-wall-color', '--accent-color');
+    const pathColor = this.calculateColor(homeAssistant, this._config.path_color, '--nimbus-map-path-color', '--primary-text-color');
     const chargerColor = this.calculateColor(homeAssistant, this._config.dock_color, 'green');
     const vacuumColor = this.calculateColor(homeAssistant, this._config.vacuum_color, '--primary-text-color');
     const gotoTargetColor = this.calculateColor(homeAssistant, this._config.goto_target_color, 'blue');
 
     // Create all objects
     const containerContainer = document.createElement('div');
-    containerContainer.id = 'lovelaceValetudoCard';
+    containerContainer.id = 'lovelaceNimbusCard';
 
     const drawnMapContainer = document.createElement('div');
     const drawnMapCanvas = document.createElement('canvas');
@@ -711,7 +711,6 @@ class ValetudoMapCard extends HTMLElement {
 
     /* End more default stuff */
 
-
     // Set card title and hide the header completely if the title is set to an empty value
     this.cardHeader.style.display = !this._config.title ? 'none' : 'block';
     this.cardTitle.textContent = this._config.title;
@@ -778,12 +777,11 @@ class ValetudoMapCard extends HTMLElement {
       }
       const responseData = await response.arrayBuffer();
 
-      const chunks = extractZtxtPngChunks(new Uint8Array(responseData)).filter(c => c.keyword === "ValetudoMap");
+      const chunks = extractZtxtPngChunks(new Uint8Array(responseData)).filter(c => c.keyword === "NimbusMap");
 
       if(chunks.length < 1) {
         throw new Error("No map data found in image");
       }
-
 
       mapData = pako.inflate(chunks[0].data, { to: 'string' });
       mapData = JSON.parse(mapData);
@@ -847,7 +845,6 @@ class ValetudoMapCard extends HTMLElement {
     }
   }
 
-
   handleDrawing(hass, mapEntity, attributes) {
     const config = this._config;
     let infoEntity = this.getVacuumEntity(this._config.vacuum);
@@ -855,7 +852,7 @@ class ValetudoMapCard extends HTMLElement {
     let canDrawMap = false;
     let canDrawControls = true;
 
-    if (attributes.__class === 'ValetudoMap') {
+    if (attributes.__class === 'NimbusMap') {
       canDrawMap = true;
     }
 
@@ -934,14 +931,14 @@ class ValetudoMapCard extends HTMLElement {
 
       // Set container CSS
       this.mapContainerStyle.textContent = `
-        #lovelaceValetudoMapCard {
+        #lovelaceNimbusMapCard {
           height: ${containerHeight}px;
           padding-top: ${containerMinHeightPadding}px;
           padding-bottom: ${containerMinHeightPadding}px;
           padding-left: ${this._config.left_padding}px;
           overflow: hidden;
         }
-        #lovelaceValetudoCard {
+        #lovelaceNimbusCard {
           position: relative;
           margin-left: auto;
           margin-right: auto;
@@ -951,7 +948,7 @@ class ValetudoMapCard extends HTMLElement {
           top: -${this._config.crop.top}px;
           left: -${this._config.crop.left}px;
         }
-        #lovelaceValetudoCard div {
+        #lovelaceNimbusCard div {
           position: absolute;
           background-color: transparent;
           width: 100%;
@@ -1007,11 +1004,11 @@ class ValetudoMapCard extends HTMLElement {
   };
 }
 
-customElements.define('valetudo-map-card', ValetudoMapCard);
+customElements.define('nimbus-map-card', NimbusMapCard);
 
 /**
- * This class (FourColorTheoremSolver) is taken from https://github.com/Hypfer/Valetudo/blob/890120c76930bb8941459a7e0d1baa0af8577d83/client/zone/js-modules/map-color-finder.js under the Apache 2 license.
- * See https://github.com/Hypfer/Valetudo/blob/890120c76930bb8941459a7e0d1baa0af8577d83/LICENSE for more information.
+ * This class (FourColorTheoremSolver) is taken from https://github.com/NimbusVacuum/Nimbus/blob/890120c76930bb8941459a7e0d1baa0af8577d83/client/zone/js-modules/map-color-finder.js under the Apache 2 license.
+ * See https://github.com/NimbusVacuum/Nimbus/blob/890120c76930bb8941459a7e0d1baa0af8577d83/LICENSE for more information.
  **/
 class FourColorTheoremSolver {
 
@@ -1169,8 +1166,8 @@ class FourColorTheoremSolver {
 }
 
 /**
- * This class (MapAreaVertex) is taken from https://github.com/Hypfer/Valetudo/blob/890120c76930bb8941459a7e0d1baa0af8577d83/client/zone/js-modules/map-color-finder.js under the Apache 2 license.
- * See https://github.com/Hypfer/Valetudo/blob/890120c76930bb8941459a7e0d1baa0af8577d83/LICENSE for more information.
+ * This class (MapAreaVertex) is taken from https://github.com/NimbusVacuum/Nimbus/blob/890120c76930bb8941459a7e0d1baa0af8577d83/client/zone/js-modules/map-color-finder.js under the Apache 2 license.
+ * See https://github.com/NimbusVacuum/Nimbus/blob/890120c76930bb8941459a7e0d1baa0af8577d83/LICENSE for more information.
  **/
 class MapAreaVertex {
   constructor(id) {
@@ -1187,8 +1184,8 @@ class MapAreaVertex {
 }
 
 /**
- * This class (MapAreaGraph) is taken from https://github.com/Hypfer/Valetudo/blob/890120c76930bb8941459a7e0d1baa0af8577d83/client/zone/js-modules/map-color-finder.js under the Apache 2 license.
- * See https://github.com/Hypfer/Valetudo/blob/890120c76930bb8941459a7e0d1baa0af8577d83/LICENSE for more information.
+ * This class (MapAreaGraph) is taken from https://github.com/NimbusVacuum/Nimbus/blob/890120c76930bb8941459a7e0d1baa0af8577d83/client/zone/js-modules/map-color-finder.js under the Apache 2 license.
+ * See https://github.com/NimbusVacuum/Nimbus/blob/890120c76930bb8941459a7e0d1baa0af8577d83/LICENSE for more information.
  **/
 class MapAreaGraph {
   constructor(vertices) {
@@ -1263,7 +1260,6 @@ function extractZtxtPngChunks (data) {
   // Uint8Arrays.
   var uint8 = new Uint8Array(4)
   var uint32 = new Uint32Array(uint8.buffer)
-
 
   if (data[0] !== 0x89) throw new Error('Invalid .png file header')
   if (data[1] !== 0x50) throw new Error('Invalid .png file header')
@@ -1422,7 +1418,6 @@ const DEFAULT_CARD_CONFIG = {
   // Crop settings
   min_height: 0
 };
-
 
 /**
  * This is pako_inflate.min.js taken from https://github.com/nodeca/pako/blob/c715679bfdc3f15faba6628c2311ca7dc6bfeb7f/dist/pako_inflate.min.js
